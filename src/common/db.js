@@ -1,11 +1,13 @@
-// libreria de MongoDB
+// libreria de Mongodb
 import { MongoClient, ServerApiVersion } from 'mongodb';
 
-const envUri = process.env.MONGODB_URI;
-const defaultUser = 'eva3_express';
-const defaultPass = 'CHANGE_ME';
+// obtiene la cadena de conexion exclusivamente desde las variables de entorno.
+const uri = process.env.MONGODB_URI;
 
-const uri = envUri || `mongodb+srv:${'//'}${defaultUser}:${encodeURIComponent(defaultPass)}@cluster-express.dsiror4.mongodb.net/?retryWrites=true&w=majority&appName=cluster-express`;
+// si la variable de entorno no esta definida, la aplicación tira error.
+if (!uri) {
+  throw new Error('FATAL ERROR: La variable de entorno MONGODB_URI no está definida. La aplicación no puede iniciarse.');
+}
 
 // nuevo cliente de mongodb y configuracion
 const client = new MongoClient(uri, {
