@@ -19,7 +19,7 @@ const handleInsertPeliculaRequest = async (req, res) => {
     const nuevaPelicula = req.body; 
     const result = await peliculaCollection.insertOne(nuevaPelicula);
     res.status(201).json({ message: 'Película creada exitosamente', insertedId: result.insertedId });
-
+  } catch (error) {
     res.status(500).json({ message: 'Error en el servidor', error });
   }
 };
